@@ -34,7 +34,8 @@ class Transformer(nn.Module):
         return self.decoder(tgt, self.encoder(src))
     
 ## Testing
-src = torch.rand(64, 32, 512)
-tgt = torch.rand(64, 16, 512)
-out = Transformer()(src,tgt)
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+src = torch.rand(64, 32, 512).to(device)
+tgt = torch.rand(64, 16, 512).to(device)
+out = Transformer().to(device)(src,tgt)
 print(out.shape)

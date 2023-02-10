@@ -8,7 +8,7 @@ def scaled_dot_product_attention(query: Tensor, key: Tensor, value: Tensor) -> T
     softmax = f.softmax(temp/scale, dim=-1)
     return softmax.bmm(value)
 
-def position_encoding(seq_len:int, dim_model:int, device: torch.device = torch.device("cpu")) -> Tensor:
+def position_encoding(seq_len:int, dim_model:int, device: torch.device = torch.device("cuda")) -> Tensor:
     pos = torch.arange(seq_len, dtype=torch.float, device=device).reshape(1,-1,1)
     dim = torch.arange(dim_model, dtype=torch.float, device=device).reshape(1,1,-1)
     phase = pos / (1e4 ** (dim // dim_model))
